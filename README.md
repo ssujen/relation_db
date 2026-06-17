@@ -35,7 +35,32 @@ The application is structured into a 3-tier topology linking the user interface,
 
 ---
 
-## 2. Tech Stack & Dependencies
+## 2. Database Schema (Graph Model)
+
+The graph database schema is modeled with a single node label (`Person`) and a single directed relationship type (`RELATES_TO`).
+
+```mermaid
+graph LR
+    P1[Person] -- "RELATES_TO {type, sentiment}" --> P2[Person]
+```
+
+### Nodes (`Person`)
+Represent individuals in the network.
+* **Label**: `Person`
+* **Properties**:
+  * `name` (String): The unique name/identifier of the person.
+  * `location` (String): The geographical location of the person.
+
+### Relationships (`RELATES_TO`)
+Directed edges representing how one person views or interacts with another.
+* **Type**: `RELATES_TO`
+* **Properties**:
+  * `type` (String): The category of relationship (e.g., `friend`, `spouse`, `boss`, `employee`, `sibling`, `enemy`, `colleague`, `partner`, `other`).
+  * `sentiment` (String): The emotional level of the relationship (e.g., `hate`, `dislike`, `neutral`, `like`, `love`).
+
+---
+
+## 3. Tech Stack & Dependencies
 
 *   **Backend & Ingestion**: Python 3.11+ / Streamlit 1.58
 *   **Graph Database**: FalkorDB (via Docker image `falkordb/falkordb:latest`)
@@ -44,7 +69,7 @@ The application is structured into a 3-tier topology linking the user interface,
 
 ---
 
-## 3. Installation & Configuration
+## 4. Installation & Configuration
 
 ### Prerequisites
 *   Docker & Docker Compose installed.
@@ -89,7 +114,7 @@ The application is structured into a 3-tier topology linking the user interface,
 
 ---
 
-## 4. How to Run
+## 5. How to Run
 
 ### Run Unit Tests
 To verify graph database operations and make sure connections are active, execute the test suite:
@@ -112,7 +137,7 @@ python src/agent.py --query "Who is enemies with Alice?"
 
 ---
 
-## 5. Directory Structure
+## 6. Directory Structure
 
 ```
 ├── .env                  # Environment configuration
